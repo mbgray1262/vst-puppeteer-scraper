@@ -8,7 +8,10 @@ app.post('/', async (req, res) => {
   const { url } = req.body;
   if (!url) return res.status(400).send('Missing URL');
 
-  const browser = await puppeteer.launch({ headless: true });
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+});
   const page = await browser.newPage();
 
   try {
